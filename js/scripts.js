@@ -1,3 +1,9 @@
+const bodyTag = document.querySelector('body');
+const wiper = document.createElement('div');
+wiper.classList.add('wiper');
+
+bodyTag.appendChild(wiper);
+
 barba.init({
   debug: true,
   transitions: [
@@ -18,8 +24,10 @@ barba.init({
           const photos = current.container.querySelectorAll('.photos');
 
           timeline
+            .set(wiper, { x: '-100%' })
             .to(navigation, { opacity: 0 }, 0)
-            .to(photos, { opacity: 0.25, x: 500 }, 0);
+            .to(photos, { opacity: 0.25, x: 500 }, 0)
+            .to(wiper, { x: 0 }, 0);
         });
       },
       enter: ({ current, next, trigger }) => {
@@ -39,7 +47,8 @@ barba.init({
             .set(navigation, { opacity: 0 })
             .set(photos, { opacity: 0.25, x: -500 })
             .to(navigation, { opacity: 1 }, 0)
-            .to(photos, { opacity: 1, x: 0 }, 0);
+            .to(photos, { opacity: 1, x: 0 }, 0)
+            .to(wiper, { x: '100%' }, 0);
         });
       }
     }
