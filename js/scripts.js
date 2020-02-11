@@ -2,6 +2,10 @@ const bodyTag = document.querySelector('body');
 const wiper = document.createElement('div');
 wiper.classList.add('wiper');
 
+const wiperImage = document.createElement('img');
+wiperImage.setAttribute('src', '../assets/logo.svg');
+
+wiper.appendChild(wiperImage);
 bodyTag.appendChild(wiper);
 
 barba.init({
@@ -25,9 +29,22 @@ barba.init({
 
           timeline
             .set(wiper, { x: '-100%' })
+            .set(wiperImage, { opacity: 1 })
             .to(navigation, { opacity: 0 }, 0)
             .to(photos, { opacity: 0.25, x: 500 }, 0)
             .to(wiper, { x: 0 }, 0);
+        });
+      },
+      beforeEnter: ({ current, next, trigger }) => {
+        return new Promise(resolve => {
+          const timeline = gsap.timeline({
+            onComplete: () => {
+              resolve();
+            }
+          });
+          timeline
+            .to(wiperImage, { opacity: 1 })
+            .to(wiperImage, { opacity: 0, delay: 2 });
         });
       },
       enter: ({ current, next, trigger }) => {
