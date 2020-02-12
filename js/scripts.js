@@ -15,13 +15,18 @@ wiper.appendChild(wiperImage);
 wiper.appendChild(wiperHolder);
 bodyTag.appendChild(wiper);
 
+barba.use(barbaPrefetch);
+
 barba.init({
   debug: true,
   transitions: [
     {
       name: 'next',
       custom: ({ current, next, trigger }) => {
-        return trigger.classList && trigger.classList.contains('next');
+        return (
+          (trigger.classList && trigger.classList.contains('next')) ||
+          trigger === 'forward'
+        );
       },
       leave: ({ current, next, trigger }) => {
         return new Promise(resolve => {
