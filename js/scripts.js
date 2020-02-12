@@ -44,6 +44,8 @@ barba.init({
         });
       },
       beforeEnter: ({ current, next, trigger }) => {
+        wiperText.innerHTML = next.container.getAttribute('data-title');
+
         return new Promise(resolve => {
           const timeline = gsap.timeline({
             defaults: {
